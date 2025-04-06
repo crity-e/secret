@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio src="img/leronjims.mp3" autoplay loop></audio>
+    <div class="container">
+        <h1>Bading ka ba?</h1>
+        <div class="btn-div">
+            <div class="yes btn">yes</div>
+            <div class="no btn">no</div>
+        </div>
+    </div>
+</body>
+<script>
+    let noBtn = document.querySelector('.no');
+    let yesBtn = document.querySelector('.yes');
+    let audio1 = new Audio('img/Catlaugh.mp3');
+    let img1 = new Image('img/catlaogh.jpg');
+
+    noBtn.addEventListener('click', function() {
+        let x = Math.floor(Math.random() * 110) + 1;
+        let y = Math.floor(Math.random() * 110) + 1;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        let newAudio = new Audio('img/Catlaugh.mp3'); // Create a new audio instance
+        newAudio.play(); // Play the new audio instance
+        img1.src = 'img/catlaogh.jpg'; // Set the image source
+        img1.style.position = 'absolute';
+        img1.style.width = '100px'; // Set the image width
+        img1.style.height = '100px'; // Set the image height
+
+        // Ensure the image doesn't go beyond the margin
+        let maxLeft = window.innerWidth - 100; // Subtract image width
+        let maxTop = window.innerHeight - 100; // Subtract image height
+        img1.style.left = `${Math.random() * maxLeft}px`; // Random horizontal position within bounds
+        img1.style.top = `${Math.random() * maxTop}px`; // Random vertical position within bounds
+
+        document.body.appendChild(img1); // Append the image to the body
+    });
+
+        // Redirect to congrats.html when "Yes" is clicked
+        yesBtn.addEventListener('click', function() {
+        setTimeout(() => {
+            window.location.href = "congratulations.html"; // Redirect after a small delay
+        }, 500);
+    });
+    
+</script>
+</html>

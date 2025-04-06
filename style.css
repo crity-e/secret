@@ -1,0 +1,53 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    align-items:  center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #FFB6C1;
+}
+
+.container{
+    height: 600px;
+    width: 400px;
+    background-position: center;
+    background-size: cover;
+    background-image: url(img/lebron.jpg);
+    box-shadow: 0 0 30px white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 30%;
+    justify-content: space-around;
+    flex-direction: column;
+    color: 	#ff6d83;
+}
+
+.btn-div{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.btn-div .btn{
+    height: 50%;
+    background-color: rgb(252, 226, 226);
+    width: 120px;
+    display: flex;
+    align-items: center;
+    font-weight: 1000;
+    justify-content: center;
+    color: 	#E30B5C;
+    text-transform: uppercase;
+    width: 120px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #FFB6C1;
+    border-radius: 5px;
+}
