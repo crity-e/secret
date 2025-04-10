@@ -3,11 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Bading ka ba?</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #FFB6C1;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            height: auto;
+            min-height: 400px;
+            width: 100%;
+            max-width: 500px;
+            background-position: center;
+            background-size: cover;
+            background-image: url(img/lebron.jpg);
+            box-shadow: 0 0 30px white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+            color: #ff6d83;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(24px, 5vw, 32px);
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            padding: 0 10px;
+        }
+
+        .btn-div {
+            height: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-div .btn {
+            height: 50px;
+            background-color: rgb(252, 226, 226);
+            min-width: 100px;
+            width: 40%;
+            display: flex;
+            align-items: center;
+            font-weight: 1000;
+            justify-content: center;
+            color: #E30B5C;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 20px #FFB6C1;
+            border-radius: 5px;
+            font-size: clamp(14px, 3vw, 16px);
+            transition: transform 0.2s;
+            user-select: none;
+        }
+
+        .btn-div .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* For tablets */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                max-width: 90%;
+                min-height: 350px;
+            }
+            
+            .btn-div {
+                flex-direction: row;
+            }
+            
+            .btn-div .btn {
+                width: 45%;
+                max-width: 150px;
+            }
+        }
+
+        /* For mobile phones */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 15px;
+                min-height: 300px;
+            }
+            
+            .btn-div {
+                flex-direction: column;
+            }
+            
+            .btn-div .btn {
+                width: 80%;
+                max-width: none;
+            }
+            
+            h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* For very small screens */
+        @media (max-width: 320px) {
+            .container {
+                padding: 20px 10px;
+                min-height: 280px;
+            }
+            
+            .btn-div .btn {
+                height: 45px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <audio src="img/leronjims.mp3" autoplay loop></audio>
     <div class="container">
         <h1>Bading ka ba?</h1>
         <div class="btn-div">
@@ -15,39 +145,93 @@
             <div class="no btn">no</div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let noBtn = document.querySelector('.no');
+            let yesBtn = document.querySelector('.yes');
+            let imgCount = 0;
+            let bgm = new Audio('img/leronjims.mp3');
+            bgm.loop = true;
+            
+            // Try to play BGM (may be blocked by browser autoplay policies)
+            document.body.addEventListener('click', function() {
+                bgm.play().catch(e => console.log("Autoplay prevented:", e));
+            }, { once: true });
+
+            const maxImages = 10;
+
+            noBtn.addEventListener('click', function() {
+                if (imgCount >= maxImages) return;
+                
+                let x = Math.floor(Math.random() * 80) + 1;
+                let y = Math.floor(Math.random() * 80) + 1;
+                noBtn.style.transform = `translate(${x}px, ${y}px)`;
+                
+                let newAudio = new Audio('img/Catlaugh.mp3');
+                bgm.play().catch(e => console.log("Audio play error:", e));
+                newAudio.play().catch(e => console.log("Audio play error:", e));
+                
+                let img1 = new Image();
+                img1.src = 'img/catlaogh.jpg';
+                img1.style.position = 'absolute';
+                img1.style.width = '80px';
+                img1.style.height = '80px';
+                img1.style.zIndex = '1000';
+
+                let maxLeft = window.innerWidth - 80;
+                let maxTop = window.innerHeight - 80;
+
+                img1.style.left = `${Math.random() * maxLeft}px`;
+                img1.style.top = `${Math.random() * maxTop}px`;
+
+                document.body.appendChild(img1);
+                imgCount++;
+
+                // Add text when the button is clicked
+                let text = document.createElement('div');
+                text.textContent = "yes kasi";
+                text.style.position = 'absolute';
+                text.style.left = `${Math.random() * maxLeft}px`;
+                text.style.top = `${Math.random() * maxTop}px`;
+                text.style.color = 'red';
+                text.style.fontSize = '16px';
+                text.style.zIndex = '1000';
+                document.body.appendChild(text);
+            });
+
+            yesBtn.addEventListener('click', function() {
+                // Add text when the Yes button is clicked
+                let text = document.createElement('div');
+                text.textContent = "bading ka pala eh, joke lang";
+                text.style.position = 'fixed';
+                text.style.left = '50%';
+                text.style.top = '50%';
+                text.style.transform = 'translate(-50%, -50%)';
+                text.style.color = 'green';
+                text.style.fontSize = 'clamp(16px, 4vw, 20px)';
+                text.style.zIndex = '1000';
+                text.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                text.style.padding = '10px 20px';
+                text.style.borderRadius = '10px';
+                document.body.appendChild(text);
+                
+                setTimeout(() => {
+                    window.location.href = "congratulations.html";
+                }, 900);
+            });
+
+            // Make sure the buttons stay visible on small screens
+            window.addEventListener('resize', function() {
+                const container = document.querySelector('.container');
+                const viewportHeight = window.innerHeight;
+                
+                if (container.offsetHeight > viewportHeight) {
+                    container.style.margin = '20px 0';
+                } else {
+                    container.style.margin = '0';
+                }
+            });
+        });
+    </script>
 </body>
-<script>
-    let noBtn = document.querySelector('.no');
-    let yesBtn = document.querySelector('.yes');
-    let audio1 = new Audio('img/Catlaugh.mp3');
-    let img1 = new Image('img/catlaogh.jpg');
-
-    noBtn.addEventListener('click', function() {
-        let x = Math.floor(Math.random() * 110) + 1;
-        let y = Math.floor(Math.random() * 110) + 1;
-        noBtn.style.transform = `translate(${x}px, ${y}px)`;
-        let newAudio = new Audio('img/Catlaugh.mp3'); // Create a new audio instance
-        newAudio.play(); // Play the new audio instance
-        img1.src = 'img/catlaogh.jpg'; // Set the image source
-        img1.style.position = 'absolute';
-        img1.style.width = '100px'; // Set the image width
-        img1.style.height = '100px'; // Set the image height
-
-        // Ensure the image doesn't go beyond the margin
-        let maxLeft = window.innerWidth - 100; // Subtract image width
-        let maxTop = window.innerHeight - 100; // Subtract image height
-        img1.style.left = `${Math.random() * maxLeft}px`; // Random horizontal position within bounds
-        img1.style.top = `${Math.random() * maxTop}px`; // Random vertical position within bounds
-
-        document.body.appendChild(img1); // Append the image to the body
-    });
-
-        // Redirect to congrats.html when "Yes" is clicked
-        yesBtn.addEventListener('click', function() {
-        setTimeout(() => {
-            window.location.href = "congratulations.html"; // Redirect after a small delay
-        }, 500);
-    });
-    
-</script>
 </html>

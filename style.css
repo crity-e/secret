@@ -1,21 +1,24 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
+body {
     display: flex;
-    align-items:  center;
+    align-items: center;
     justify-content: center;
     min-height: 100vh;
     background: #FFB6C1;
+    padding: 20px;
 }
 
-.container{
-    height: 600px;
-    width: 400px;
+.container {
+    height: auto;
+    min-height: 400px;
+    width: 100%;
+    max-width: 400px;
     background-position: center;
     background-size: cover;
     background-image: url(img/lebron.jpg);
@@ -23,31 +26,89 @@ body{
     border-radius: 20px;
     display: flex;
     align-items: center;
-    grid-gap: 30%;
     justify-content: space-around;
     flex-direction: column;
-    color: 	#ff6d83;
+    color: #ff6d83;
+    padding: 40px 20px;
+    text-align: center;
 }
 
-.btn-div{
-    height: 100px;
+h1 {
+    font-size: clamp(24px, 5vw, 32px);
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.btn-div {
+    height: auto;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 15px;
 }
-.btn-div .btn{
-    height: 50%;
+
+.btn-div .btn {
+    height: 50px;
     background-color: rgb(252, 226, 226);
-    width: 120px;
+    min-width: 100px;
+    max-width: 120px;
     display: flex;
     align-items: center;
     font-weight: 1000;
     justify-content: center;
-    color: 	#E30B5C;
+    color: #E30B5C;
     text-transform: uppercase;
-    width: 120px;
     cursor: pointer;
     box-shadow: 0 0 20px #FFB6C1;
     border-radius: 5px;
+    font-size: clamp(14px, 3vw, 16px);
+    transition: transform 0.2s;
+}
+
+.btn-div .btn:hover {
+    transform: scale(1.05);
+}
+
+/* For smaller screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 15px;
+    }
+    
+    .btn-div {
+        flex-direction: column;
+    }
+    
+    .btn-div .btn {
+        width: 80%;
+        max-width: none;
+    }
+}
+
+/* For tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        max-width: 90%;
+        min-height: 350px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 15px;
+        min-height: 300px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
 }

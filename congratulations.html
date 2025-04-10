@@ -3,214 +3,468 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Congratulations Graduate!</title>
+    <title>Congratulations</title>
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: 'Georgia', serif;
-            background: #fff5f5;
             margin: 0;
             padding: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            color: #5a3e2b;
-            position: relative;
-            overflow: hidden;
+            min-height: 100vh;
+            background: radial-gradient(circle, #FFB6C1, #FF69B4);
+            transition: background-color 0.5s;
         }
-        
-        /* Lily positioning */
-        .lily-svg {
-            position: absolute;
-            z-index: 0;
-            filter: drop-shadow(2px 4px 6px rgba(90, 62, 43, 0.1));
-        }
-        
-        .lily-1 {
-            top: 5%;
-            left: 5%;
-            width: 150px;
-            transform: rotate(-5deg);
-        }
-        
-        .lily-2 {
-            bottom: 5%;
-            right: 5%;
-            width: 160px;
-            transform: rotate(15deg);
-        }
-        
-        .lily-3 {
-            top: 15%;
-            right: 8%;
-            width: 120px;
-            transform: rotate(5deg);
-        }
-        
-        .lily-4 {
-            bottom: 10%;
-            left: 7%;
-            width: 110px;
-            transform: rotate(-10deg);
+
+        body.dimmed {
+            background-color: #d48a94;
         }
 
         .container {
-            max-width: 700px;
-            padding: 3rem;
-            background-color: rgba(255, 248, 240, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(90, 62, 43, 0.1);
-            border: 1px solid rgba(210, 166, 121, 0.3);
+            text-align: center;
             position: relative;
             z-index: 1;
+            width: 95%;
+            max-width: 1200px;
+            padding: 20px;
         }
-        
-        .container::before {
-            content: "";
-            position: absolute;
+
+        .picture img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .btm {
+            margin-top: 20px;
+        }
+
+        .btn i {
+            font-size: 40px;
+            color: #fd6a80;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn i:first-child {
+            display: block;
+        }
+
+        .btn i:last-child {
+            display: none;
+        }
+
+        .btn:hover i:first-child {
+            display: none;
+        }
+
+        .btn:hover i:last-child {
+            display: block;
+            color: #fff;
+        }
+
+        i {
+            color: #fd6a80;
+        }
+
+        p{
+            color: #fd6a80;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        body {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .petals {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            height: 8px;
-            background: linear-gradient(90deg, #f8d7e8, #d2a679, #b58e6a, #f8d7e8);
-            border-radius: 20px 20px 0 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            overflow: hidden;
         }
-        
-        h1 {
-            color: #8d5a3b;
-            margin-bottom: 1.5rem;
-            font-size: 2.5rem;
-            font-weight: normal;
-        }
-        
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            color: #7a5a44;
-        }
-        
-        .grad-cap {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-            color: #b58e6a;
-        }
-        
-        .handwriting {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            color: #b58e6a;
-            margin-bottom: 2rem;
-            display: block;
-        }
-        
-        /* Falling petals animation */
+
         .petal {
-            position: absolute;
-            background: #f8d7e8;
-            border-radius: 150% 0 150% 0;
-            opacity: 0;
-            animation: fall linear infinite;
-            transform: rotate(45deg);
-            box-shadow: inset -3px -3px 5px rgba(210, 166, 121, 0.2);
-            border: 1px solid rgba(245, 200, 220, 0.5);
+    position: absolute;
+    background-color: #ffc0cb;
+    border-radius: 150% 0 150% 0;
+    animation: falling linear infinite;
+    animation-fill-mode: none; /* Ensure petals disappear when not moving */
+    opacity: 0;
+    filter: drop-shadow(0 0 2px rgba(255, 192, 203, 0.5));
+    transform-origin: center;
+    will-change: transform, opacity; /* Optimize performance */
+}
+
+@keyframes falling {
+    0% {
+        transform: translate(0, -10vh) rotate(0deg) scale(var(--scale-start));
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translate(calc(10vw * var(--random-x)), 10vh) rotate(30deg) scale(var(--scale-start));
+    }
+    50% {
+        transform: translate(calc(50vw * var(--random-x)), 50vh) rotate(180deg) scale(var(--scale-end));
+    }
+    90% {
+        opacity: 1;
+        transform: translate(calc(90vw * var(--random-x)), 90vh) rotate(300deg) scale(var(--scale-end));
+    }
+    100% {
+        transform: translate(calc(100vw * var(--random-x)), 100vh) rotate(360deg) scale(var(--scale-end));
+        opacity: 0;
+    }
+}
+
+
+        /* Popup styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
         }
-        
-        @keyframes fall {
-            0% {
-                top: -10%;
-                opacity: 1;
-                transform: rotate(0deg);
+
+        .popup-content {
+            position: relative;
+            width: auto;
+            max-width: 800px;
+            max-height: 90vh;
+            margin: 0 auto;
+        }
+
+        .popup-image {
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            color: #fd6a80;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            color: #fd6a80;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .btn i {
+                font-size: 30px;
             }
-            100% {
-                top: 100%;
-                opacity: 0;
-                transform: rotate(360deg);
+            
+            .popup-content {
+                width: 95%;
+            }
+            
+            .nav-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            
+            .prev-btn {
+                left: 5px;
+            }
+            
+            .next-btn {
+                right: 5px;
+            }
+            
+            .close-btn {
+                top: -25px;
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+            
+            /* Adjust petal size for mobile */
+            .petal {
+                width: 12px !important;
+                height: 12px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .picture img {
+                max-width: 100%;
+            }
+            
+            .btn i {
+                font-size: 25px;
+            }
+            
+            /* Fewer petals on very small devices for performance */
+            .petal:nth-child(n+20) {
+                display: none;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- SVG Lilies -->
-    <svg class="lily-svg lily-1" viewBox="0 0 100 200" preserveAspectRatio="xMidYMin meet">
-        <!-- Stem -->
-        <path d="M50 50 L50 200" stroke="#7cb342" stroke-width="4" stroke-linecap="round" />
-        <!-- Lily petals -->
-        <path d="M50 50 Q30 30 30 50 Q50 70 70 50 Q70 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(60 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(120 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(180 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(240 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(300 50 50)" />
-        <!-- Center -->
-        <circle cx="50" cy="50" r="10" fill="#f0b6d5" />
-    </svg>
-
-    <svg class="lily-svg lily-2" viewBox="0 0 100 200" preserveAspectRatio="xMidYMin meet">
-        <path d="M50 50 L50 200" stroke="#7cb342" stroke-width="4" stroke-linecap="round" />
-        <path d="M50 50 Q30 30 30 50 Q50 70 70 50 Q70 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(60 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(120 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(180 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(240 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(300 50 50)" />
-        <circle cx="50" cy="50" r="10" fill="#f0b6d5" />
-    </svg>
-
-    <svg class="lily-svg lily-3" viewBox="0 0 100 200" preserveAspectRatio="xMidYMin meet">
-        <path d="M50 50 L50 200" stroke="#7cb342" stroke-width="4" stroke-linecap="round" />
-        <path d="M50 50 Q30 30 30 50 Q50 70 70 50 Q70 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(60 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(120 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(180 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(240 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(300 50 50)" />
-        <circle cx="50" cy="50" r="10" fill="#f0b6d5" />
-    </svg>
-
-    <svg class="lily-svg lily-4" viewBox="0 0 100 200" preserveAspectRatio="xMidYMin meet">
-        <path d="M50 50 L50 200" stroke="#7cb342" stroke-width="4" stroke-linecap="round" />
-        <path d="M50 50 Q30 30 30 50 Q50 70 70 50 Q70 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(60 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(120 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(180 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(240 50 50)" />
-        <path d="M50 50 Q70 30 70 50 Q50 70 30 50 Q30 30 50 50 Z" fill="#f8e0ed" stroke="#f0b6d5" stroke-width="0.5" transform="rotate(300 50 50)" />
-        <circle cx="50" cy="50" r="10" fill="#f0b6d5" />
-    </svg>
-
     <div class="container">
-        <span class="handwriting">With Love & Pride</span>
-        <span class="grad-cap">🎓</span>
-        <h1>Congratulations Graduate!</h1>
-        <p>Like lilies blooming in spring, your achievements have blossomed beautifully through your dedication and hard work.</p>
-        <p>This milestone is just the beginning of your wonderful journey ahead. May your path be filled with joy, success, and continued growth.</p>
-        <p>We're so incredibly proud of you!</p>
+        <div class="picture"><img src="img/congrats_bella.png" alt="Congratulations"></div>
+        <div class="btm">
+            <div class="btn" id="envelopeBtn">
+                <i class='bx bxs-envelope'></i>
+                <i class='bx bx-envelope'></i>
+            </div>
+            <i class='bx bx-up-arrow-alt'></i>
+            <p>Click Here</p>
+        </div>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <button class="close-btn" id="closeBtn"><i class='bx bx-x'></i></button>
+            <img class="popup-image" id="popupImage" src="img/1.png">
+            <button class="nav-btn prev-btn" id="prevBtn"><i class='bx bx-chevron-left'></i></button>
+            <button class="nav-btn next-btn" id="nextBtn"><i class='bx bx-chevron-right'></i></button>
+        </div>
+    </div>
+
+    <div class="petals">
+        <!-- 30 petals -->
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
     </div>
 
     <script>
-        // Create falling petals
-        function createPetals() {
-            const colors = ['#f8d7e8', '#f0b6d5', '#e895c2'];
+ document.addEventListener('DOMContentLoaded', function() {
+    const petals = document.querySelectorAll('.petal');
+    const colors = ['#ffb6c1', '#ffc0cb', '#ffd1dc', '#ffdfed', '#fd6a80', '#ff9eb5', '#ffa8b8'];
+
+    petals.forEach(petal => {
+        const size = Math.random() * 17 + 8; // Random size
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+        petal.style.left = `${Math.random() * 100}vw`;
+        petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        const duration = Math.random() * 12 + 8; // Duration of animation
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.animationDelay = `${Math.random() * 5}s`; // Delay
+        petal.style.setProperty('--random-x', (Math.random() - 0.5) * 2);
+        petal.style.setProperty('--rotation', Math.random() * 720);
+        petal.style.setProperty('--scale-start', 0.8 + Math.random() * 0.4);
+        petal.style.setProperty('--scale-end', 0.6 + Math.random() * 0.6);
+    });
+
+
+            // Popup functionality
+            const envelopeBtn = document.getElementById('envelopeBtn');
+            const popupOverlay = document.getElementById('popupOverlay');
+            const popupImage = document.getElementById('popupImage');
+            const closeBtn = document.getElementById('closeBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const body = document.body;
+
+            // Sample images - replace with your actual image paths
+            const images = [
+                'img/1.png',
+                'img/2.png',
+            ];
             
-            for (let i = 0; i < 30; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'petal';
-                petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.width = (Math.random() * 20 + 15) + 'px';
-                petal.style.height = (Math.random() * 20 + 15) + 'px';
-                petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                petal.style.animationDelay = (Math.random() * 5) + 's';
-                petal.style.background = colors[Math.floor(Math.random() * colors.length)];
-                document.body.appendChild(petal);
+            let currentImageIndex = 0;
+
+            // Open popup when envelope is clicked
+            envelopeBtn.addEventListener('click', function() {
+                if (images.length > 0) {
+                    currentImageIndex = 0;
+                    popupImage.src = images[currentImageIndex];
+                    popupOverlay.style.display = 'flex';
+                    body.classList.add('dimmed');
+                    updateNavButtons();
+                }
+            });
+
+            // Close popup
+            closeBtn.addEventListener('click', function() {
+                popupOverlay.style.display = 'none';
+                body.classList.remove('dimmed');
+            });
+
+            // Navigate to previous image
+            prevBtn.addEventListener('click', function() {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    popupImage.src = images[currentImageIndex];
+                    updateNavButtons();
+                }
+            });
+
+            // Navigate to next image
+            nextBtn.addEventListener('click', function() {
+                if (currentImageIndex < images.length - 1) {
+                    currentImageIndex++;
+                    popupImage.src = images[currentImageIndex];
+                    updateNavButtons();
+                }
+            });
+
+            // Close when clicking outside the image
+            popupOverlay.addEventListener('click', function(e) {
+                if (e.target === popupOverlay) {
+                    popupOverlay.style.display = 'none';
+                    body.classList.remove('dimmed');
+                }
+            });
+
+            // Handle swipe gestures for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            popupImage.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            popupImage.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left - next image
+                    if (currentImageIndex < images.length - 1) {
+                        currentImageIndex++;
+                        popupImage.src = images[currentImageIndex];
+                        updateNavButtons();
+                    }
+                }
+                
+                if (touchEndX > touchStartX + 50) {
+                    // Swipe right - previous image
+                    if (currentImageIndex > 0) {
+                        currentImageIndex--;
+                        popupImage.src = images[currentImageIndex];
+                        updateNavButtons();
+                    }
+                }
             }
-        }
-        
-        // Create petals on page load
-        window.onload = createPetals;
+
+            // Update navigation buttons state
+            function updateNavButtons() {
+                prevBtn.style.display = currentImageIndex > 0 ? 'flex' : 'none';
+                nextBtn.style.display = currentImageIndex < images.length - 1 ? 'flex' : 'none';
+            }
+        });
     </script>
 </body>
 </html>
